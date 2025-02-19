@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Dialogue
 {
     public string name;
-    public RawImage image;
+    public RawImage image; 
     [TextArea(3, 10)]
     public string[] sentences;
 }
