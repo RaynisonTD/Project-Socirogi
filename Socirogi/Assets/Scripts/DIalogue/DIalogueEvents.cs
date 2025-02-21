@@ -32,10 +32,7 @@ public class DialogueEvents
 
     public void DisplayDialogue(string dialogueLine)
     {
-        if (onDisplayDialogue != null)
-        {
-            onDisplayDialogue(dialogueLine);
-        }
+        onDisplayDialogue?.Invoke(dialogueLine);
     }
 
 }

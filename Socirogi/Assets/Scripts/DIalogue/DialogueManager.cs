@@ -65,8 +65,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (story.canContinue)
         {
-            string dialogueLine = story.Continue();
-                        GameEventsManager.instance.dialogueEvents.DisplayDialogue(dialogueLine);
+            string dialogueLine = story.Continue(); 
+            GameEventsManager.instance.dialogueEvents.DisplayDialogue(dialogueLine);
         }
         else
         {

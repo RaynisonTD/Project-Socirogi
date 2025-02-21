@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class InputManager : MonoBehaviour
 {
-    public void MovePressed(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
         if (context.performed || context.canceled)
         {
@@ -18,15 +18,15 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void SubmitPressed(InputAction.CallbackContext context)
+    public void OnSubmit(InputValue context)
     {
-        if (context.started)
+        if (context.isPressed)
         {
             GameEventsManager.instance.inputEvents.SubmitPressed();
         }
     }
 
-    public void QuestLogTogglePressed(InputAction.CallbackContext context)
+    public void OnQuestLogTogglePressed(InputAction.CallbackContext context)
     {
         if (context.started)
         {
