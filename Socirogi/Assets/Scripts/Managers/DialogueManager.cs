@@ -1,9 +1,11 @@
 using UnityEngine;
 using Ink.Runtime;
-
+using System.Collections.Generic;
 public class DialogueManager : MonoBehaviour
 {
     [Header("Ink Story")] [SerializeField] private TextAsset inkJson;
+    
+    
     
     private Story story;
     
@@ -81,5 +83,35 @@ public class DialogueManager : MonoBehaviour
         
         
         story.ResetState();
+    }
+
+    //Skip function.
+    public void SkipDialogue()
+    {
+        GameEventsManager.instance.dialogueEvents.DialogFinished();
+        dialoguePlaying = false;
+        
+        
+        story.ResetState();
+    }
+    
+    //Manual next line button.
+    public void NextLine()
+    {
+        if (story.canContinue)
+        {
+            string dialogueLine = story.Continue();
+            GameEventsManager.instance.dialogueEvents.DisplayDialogue(dialogueLine);
+        }
+        else
+        {
+            ExitDialogue();
+        }
+    }
+
+    //Funciton for showing the previous line.
+    public void PreviousLine()
+    {
+        
     }
 }
