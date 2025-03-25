@@ -10,7 +10,6 @@ public class DialoguePanelUI : MonoBehaviour
     [Header("Components")]
     [SerializeField] private GameObject contentParent;
     [SerializeField] private TextMeshProUGUI dialogueText;
-    //[SerializeField] private Image image;
     private void Awake()
     {
         contentParent.SetActive(false);

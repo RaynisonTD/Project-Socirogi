@@ -108,10 +108,4 @@ public class DialogueManager : MonoBehaviour
             ExitDialogue();
         }
     }
-
-    //Funciton for showing the previous line.
-    public void PreviousLine()
-    {
-        
-    }
 }
