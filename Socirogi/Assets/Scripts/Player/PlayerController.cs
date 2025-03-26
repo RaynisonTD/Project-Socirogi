@@ -1,6 +1,7 @@
 using Stats;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 namespace Player
 {
@@ -11,11 +12,13 @@ namespace Player
         private Vector3 _moveDirection;
         private Vector3 _lookDirection;
         private Camera _mainCamera;
+        private bool _hasAttacked;
         private Rigidbody _rb;
 
         // Event for movement and look input to be sent to the PlayerLocomotion script
         public static event System.Action<Vector3> OnMoveInput;
         public static event System.Action<Vector3> OnLookInput;
+        public static event System.Action OnAttackInput;
 
         void Start()
         {
@@ -64,8 +67,8 @@ namespace Player
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (context.performed)
-            {
-                // Handle aanval (indien van toepassing)
+            { 
+                OnAttackInput?.Invoke();
             }
         }
 
