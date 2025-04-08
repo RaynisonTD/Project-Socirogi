@@ -10,6 +10,7 @@ public class DialoguePanelUI : MonoBehaviour
     [Header("Components")]
     [SerializeField] private GameObject contentParent;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    
     private void Awake()
     {
         contentParent.SetActive(false);
@@ -25,6 +26,7 @@ public class DialoguePanelUI : MonoBehaviour
 
     private void OnDisable()
     {
+        // Unsubscribing from events to prevent memory leaks when the object is disabled.
         GameEventsManager.instance.dialogueEvents.onDialogStarted -= DialogueStarted;
         GameEventsManager.instance.dialogueEvents.onDialogFinished -= DialogueFinished;
         GameEventsManager.instance.dialogueEvents.onDisplayDialogue -= DisplayDialogue;
@@ -32,13 +34,14 @@ public class DialoguePanelUI : MonoBehaviour
 
     private void DialogueStarted()
     {
+        // This method makes the dialogue panel visible when a dialogue starts.
         contentParent.SetActive(true);
     }
 
     private void DialogueFinished()
     {
         contentParent.SetActive(false);
-
+        
         // reset anything for next time
         ResetPanel();
     }

@@ -10,13 +10,7 @@ public class Interactable : MonoBehaviour
 
     [Header("Dialogue (optional)")] [SerializeField]
     private string dialogueKnotName;
-   // [SerializeField] private Sprite sprite;
-    void Start()
-    {
-        // Zoek het DialogueTrigger component op hetzelfde GameObject
-        
-    }
-
+    //speler dichtbij variabele
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -35,11 +29,13 @@ public class Interactable : MonoBehaviour
 
     void Update()
     {
+        //check if the player is nearby
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("binnen de border");
             if (!dialogueKnotName.Equals(""))
             {
+                //start dialogue script
                 GameEventsManager.instance.dialogueEvents.EnterDialogue(dialogueKnotName);
                 Debug.Log("Dialogue Entered");
             }

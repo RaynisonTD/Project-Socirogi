@@ -39,8 +39,7 @@ public class DialogueManager : MonoBehaviour
     
         ContinueOrExitStory();
     }
-
-
+    
     
     private void EnterDialogue(string knotName)
     {
@@ -57,12 +56,13 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("know naam was een emtpy string ofzo iets");
+            Debug.LogWarning("knot naam was een emtpy string ofzo iets");
         }
 
         ContinueOrExitStory();
     }
 
+    //continue dialogue if able to
     private void ContinueOrExitStory()
     {
         if (story.canContinue)
@@ -76,6 +76,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    //exit dialogue function
     private void ExitDialogue()
     {
         GameEventsManager.instance.dialogueEvents.DialogFinished();
@@ -95,7 +96,7 @@ public class DialogueManager : MonoBehaviour
         story.ResetState();
     }
     
-    //Manual next line button.
+    //function to progress to the next line (manual version)
     public void NextLine()
     {
         if (story.canContinue)

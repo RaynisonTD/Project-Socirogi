@@ -1,28 +1,35 @@
-using Player;
 using UnityEngine;
+using Player;
 
 public class AttackOrigin : MonoBehaviour
 {
+    [SerializeField] private Cooldown cooldown; 
     [SerializeField] private GameObject projectilePrefab;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float projectileSpeed = 20f;
+
     void Start()
     {
         PlayerController.OnAttackInput += Attack;
     }
 
-    // Update is called once per frame
-    void Update()
+    void Attack()
     {
-        Attack();
+        // Spawn de vuurbal
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+
+        // Zorg dat de vuurbal beweegt
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = firePoint.forward * projectileSpeed; // Beweeg in de richting van de speler
+        }
+
+        cooldown.StartCoolDown();
     }
 
-    public void Attack()
+    private void OnDestroy()
     {
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("button pressed");
-            
-        }
+        PlayerController.OnAttackInput -= Attack;
     }
 }
