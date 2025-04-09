@@ -1,35 +1,56 @@
 using UnityEngine;
 using Player;
+using System.Collections;
 
 public class AttackOrigin : MonoBehaviour
 {
-    [SerializeField] private Cooldown cooldown; 
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float projectileSpeed = 20f;
+    [SerializeField] private float attackCooldown = 5f;
+
+    private bool canAttack = true;
 
     void Start()
     {
-        PlayerController.OnAttackInput += Attack;
+        PlayerController.OnAttackInput += TryAttack;
     }
 
-    void Attack()
+    void TryAttack()
     {
-        // Spawn de vuurbal
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        if (!canAttack) return;
 
-        // Zorg dat de vuurbal beweegt
+        StartCoroutine(AttackRoutine());
+    }
+
+    IEnumerator AttackRoutine()
+    {
+        canAttack = false;
+
+        Vector3 spawnPos = firePoint.position + firePoint.forward * 0.5f;
+        GameObject projectile = Instantiate(projectilePrefab, spawnPos, firePoint.rotation);
+
+        Collider projectileCollider = projectile.GetComponent<Collider>();
+        Collider playerCollider = GetComponentInParent<Collider>();
+
+        if (projectileCollider != null && playerCollider != null)
+        {
+            Physics.IgnoreCollision(projectileCollider, playerCollider);
+        }
+
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.linearVelocity = firePoint.forward * projectileSpeed; // Beweeg in de richting van de speler
+            rb.linearVelocity = firePoint.forward * projectileSpeed;
         }
 
-        cooldown.StartCoolDown();
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
 
-    private void OnDestroy()
+
+    void OnDestroy()
     {
-        PlayerController.OnAttackInput -= Attack;
+        PlayerController.OnAttackInput -= TryAttack;
     }
 }
