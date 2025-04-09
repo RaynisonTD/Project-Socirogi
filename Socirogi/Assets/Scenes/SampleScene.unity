@@ -762,7 +762,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23931126, y: -0.32409078, z: 0.085111395, w: 0.9112911}
-  m_LocalPosition: {x: 5.281326, y: 9.064587, z: -39.773514}
+  m_LocalPosition: {x: 5.2743826, y: 9.064587, z: -39.779167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1516,7 +1516,7 @@ Transform:
   m_GameObject: {fileID: 1328932763}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23931126, y: -0.32409078, z: 0.085111395, w: 0.9112911}
-  m_LocalPosition: {x: 5.281326, y: 9.064587, z: -39.773514}
+  m_LocalPosition: {x: 5.2743826, y: 9.064587, z: -39.779167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1615,15 +1615,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e133d4e77b2a82b4a9d5721aa8fbde6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats:
+    health: 100
+    movespeed: 2
+    Damage: 3
   realTimeStats:
     health: 100
-    damage: 5
-    moveSpeed: 2
-  baseStats:
-    health: 100
-    damage: 5
-    moveSpeed: 2
-  healthBarPrefab: {fileID: 2228040718398809681, guid: c1bc98dbd35a7df46b118fc1def2fb10, type: 3}
+    movespeed: 0
+    Damage: 0
 --- !u!1001 &1530471982
 PrefabInstance:
   m_ObjectHideFlags: 0
