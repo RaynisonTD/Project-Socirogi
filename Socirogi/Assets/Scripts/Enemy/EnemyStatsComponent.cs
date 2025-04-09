@@ -1,63 +1,44 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Stats
 {
     
-    [Serializable]
-    public class EnemyStats
-    {
-        public float health = 100f;
-        public float damage = 5f;
-        public float moveSpeed = 2f;
-    }
-
     public class EnemyStatsComponent : MonoBehaviour
     {
-        public EnemyStats realTimeStats = new EnemyStats();
-        public EnemyStats baseStats = new EnemyStats(); 
-
-        [SerializeField] private EnemyHealthBar healthBarPrefab; 
-        private EnemyHealthBar healthBarInstance;
-
+        // instance of the original stats of the player 
+        [SerializeField] private EnemyStats stats;
         
+        // instance of realtime stats of the player
+        [HideInInspector] public EnemyStats realTimeStats;
         
-        void Start()
+        private void Awake()
         {
-            if (healthBarPrefab != null)
-            {
-                healthBarInstance = Instantiate(healthBarPrefab, transform);
-                healthBarInstance.transform.localPosition = new Vector3(0, 2, 0);
-
-                healthBarInstance.transform.SetParent(transform); 
-                healthBarInstance.cam = Camera.main;
-                
-                
-            }
-
-            // Zet de basis stats (meestal hetzelfde als realTimeStats)
-            baseStats.health = realTimeStats.health;
+            ItemChanges();
         }
-
-        void Update()
+        /// <summary>
+        /// apply any changes to player stats if they are present
+        /// </summary>
+        void ItemChanges()
         {
-            if (healthBarInstance != null)
-            {
-                healthBarInstance.SetHealth(realTimeStats.health, baseStats.health);
-            }
-            Debug.Log("Updating health: " + realTimeStats.health);
-
-            if (realTimeStats.health <= 0)
-            {
-                Destroy(gameObject); 
-            }
+            // clone the original stats of the player in case of veranderingen
+            realTimeStats = stats.Clone() as EnemyStats;
         }
+    }
+    
+    
+    [System.Serializable] public class EnemyStats : ICloneable
+    {
+        // Player stats
+        public float health;
+        public float movespeed;
+        public float Damage;
 
-
-        public void TakeDamage(float damageAmount)
+        //return instance of the player stats as they were before the changes
+        public object Clone()
         {
-            realTimeStats.health -= damageAmount;
-            if (realTimeStats.health < 0) realTimeStats.health = 0;
+            return this.MemberwiseClone();
         }
     }
 }

@@ -13,10 +13,7 @@ public class FireballProjectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.TryGetComponent(out EnemyStatsComponent enemyStats))
-        {
-            enemyStats.TakeDamage(damage); // Roep de TakeDamage functie aan om de vijand te beschadigen
-        }
+       
 
         Destroy(gameObject); // Vernietig de vuurbal bij impact
     }
