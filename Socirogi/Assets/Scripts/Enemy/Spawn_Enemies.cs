@@ -22,6 +22,7 @@ public class Spawn_Enemies : MonoBehaviour
         if (isPlayerNearby)
         {
             Instantiate(Prefab, vloer.position, Quaternion.identity);
+            
         }
     }
 }

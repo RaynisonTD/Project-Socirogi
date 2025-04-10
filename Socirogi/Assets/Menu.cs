@@ -18,4 +18,15 @@ public class Menu : MonoBehaviour
             Debug.Log("No more scenes in the build settings.");
         }
     }
+
+    public void ReloadScene()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
