@@ -13,8 +13,17 @@ public class FireballProjectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-       
+        if (collision.gameObject.TryGetComponent(out EnemyStatsComponent enemyStats))
+        {
+            enemyStats.realTimeStats.health -= damage;
+            Debug.Log($"Fireball hit! Dealt {damage} damage. Enemy HP is now: {enemyStats.realTimeStats.health}");
+        }
+        else
+        {
+            Debug.Log("Fireball hit something, but it wasn't an enemy.");
+        }
 
         Destroy(gameObject); // Vernietig de vuurbal bij impact
     }
+
 }

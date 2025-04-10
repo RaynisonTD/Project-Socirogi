@@ -15,7 +15,6 @@ public class EnemyHealthBar : MonoBehaviour
 //ja
     private IEnumerator FindCameraNextFrame()
     {
-        Debug.Log("ja");
         yield return null;
         if (Camera.main != null)
         {

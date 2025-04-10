@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace Stats
 {
-    
+
     public class EnemyStatsComponent : MonoBehaviour
     {
+        [HideInInspector] public EnemyStats realTimeStatsMax;
+
         // instance of the original stats of the player 
         [SerializeField] private EnemyStats stats;
         
@@ -24,12 +26,14 @@ namespace Stats
         {
             // clone the original stats of the player in case of veranderingen
             realTimeStats = stats.Clone() as EnemyStats;
+            realTimeStatsMax = stats.Clone() as EnemyStats;
         }
     }
     
     
     [System.Serializable] public class EnemyStats : ICloneable
     {
+
         // Player stats
         public float health;
         public float movespeed;

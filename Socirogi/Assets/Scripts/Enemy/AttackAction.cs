@@ -24,11 +24,16 @@ public partial class AttackAction : Action
 
         if (!hit.transform.TryGetComponent(out PlayerStatsComponent playerStats))
             return Status.Failure;
-        
-        playerStats.realTimeStats.health -= 5.0f;
+
+        if (!Enemy.Value.TryGetComponent(out EnemyStatsComponent enemyStats))
+            return Status.Failure;
+
+        float damage = enemyStats.realTimeStats.Damage;
+
+        playerStats.realTimeStats.health -= damage;
         return Status.Success;
-        
     }
+
 
     protected override void OnEnd()
     {
