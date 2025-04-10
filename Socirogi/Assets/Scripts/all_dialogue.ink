@@ -9,3 +9,6 @@ ook kun je met je muis bewegen om om je heen te kijken
 skibidi
 ->END
 
+===finish===
+wooow je hebt het gehaald gefeliciteerd
+->END

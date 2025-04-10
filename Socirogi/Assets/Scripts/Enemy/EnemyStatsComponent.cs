@@ -1,4 +1,6 @@
 using System;
+using System.Reflection;
+using Unity.Behavior;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,8 +9,9 @@ namespace Stats
 
     public class EnemyStatsComponent : MonoBehaviour
     {
+        public GameObject otherGameObject;
+        private GameObject player;
         [SerializeField] private EnemyStats stats;
-
         [HideInInspector] public EnemyStats realTimeStats;
         [HideInInspector] public EnemyStats realTimeStatsMax;
 
@@ -23,6 +26,13 @@ namespace Stats
             {
                 Die();
             }
+        }
+
+        private void Start()
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            BehaviorGraphAgent Behaviour = otherGameObject.GetComponent<BehaviorGraphAgent>();
+            Behaviour.BlackboardReference.SetVariableValue("Target", player);
         }
 
         void ItemChanges()

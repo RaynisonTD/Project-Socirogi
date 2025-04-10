@@ -4,6 +4,7 @@ public class Spawn_Enemies : MonoBehaviour
 {
     private bool isPlayerNearby = false;
     public GameObject Prefab;
+    private Transform vloer;
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,9 +17,11 @@ public class Spawn_Enemies : MonoBehaviour
 
     public void SpawnEnemy()
     {
+        vloer = GameObject.Find("enemy_spawn").transform;
+        Debug.Log(vloer.position);
         if (isPlayerNearby)
         {
-            Instantiate(Prefab, new Vector3(0f, 18f, 0f), Quaternion.identity);
+            Instantiate(Prefab, vloer.position, Quaternion.identity);
         }
     }
 }
