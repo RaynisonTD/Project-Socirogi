@@ -7,26 +7,34 @@ namespace Stats
 
     public class EnemyStatsComponent : MonoBehaviour
     {
+        [SerializeField] private EnemyStats stats;
+
+        [HideInInspector] public EnemyStats realTimeStats;
         [HideInInspector] public EnemyStats realTimeStatsMax;
 
-        // instance of the original stats of the player 
-        [SerializeField] private EnemyStats stats;
-        
-        // instance of realtime stats of the player
-        [HideInInspector] public EnemyStats realTimeStats;
-        
         private void Awake()
         {
             ItemChanges();
         }
-        /// <summary>
-        /// apply any changes to player stats if they are present
-        /// </summary>
+
+        private void Update()
+        {
+            if (realTimeStats.health <= 0)
+            {
+                Die();
+            }
+        }
+
         void ItemChanges()
         {
-            // clone the original stats of the player in case of veranderingen
             realTimeStats = stats.Clone() as EnemyStats;
             realTimeStatsMax = stats.Clone() as EnemyStats;
+        }
+
+        private void Die()
+        {
+            Debug.Log($"{gameObject.name} is dead!");
+            Destroy(gameObject);
         }
     }
     

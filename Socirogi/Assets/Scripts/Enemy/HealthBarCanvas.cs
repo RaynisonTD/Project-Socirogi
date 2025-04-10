@@ -19,17 +19,20 @@ public class EnemyHealthBarCanvas : MonoBehaviour
 
     void Update()
     {
-        // Update health bar waarde
+        // dit zorgt ervoor dat de hp bar up to date blijft
         healthSlider.value = statsComponent.realTimeStats.health / statsComponent.realTimeStatsMax.health;
 
-        // Fix de positie boven het hoofd
+        // zet die hp bar boven zijn kop anders zit ie in het lichaam
         transform.position = statsComponent.transform.position + offset;
 
-        // Kijk naar camera, maar alleen horizontaal
+        // dit zorgt ervoor dat ie naar de camera kijkt en niet meedraait met de enemy
         Vector3 direction = (mainCam.transform.position - transform.position).normalized;
-        direction.y = 0f; // Voorkomt kantelen
-        direction.x = 0f;
-        direction.z = 0f;
-        transform.rotation = Quaternion.LookRotation(-direction);
+
+        
+    }
+    void LateUpdate()
+    {
+        //dit zou er ook voor meoten zorgen dat het naar de camera blijft staren
+        transform.rotation = mainCam.transform.rotation;
     }
 }
