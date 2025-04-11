@@ -5,7 +5,8 @@ public class FInish_Level : MonoBehaviour
     private bool isPlayerNearby = false;
     public GameObject canvas;
     private bool isShowing = false;
-    
+    public AudioClip clip;
+    private AudioSource audioSource;
     
     
     void OnTriggerEnter(Collider other)
@@ -17,17 +18,23 @@ public class FInish_Level : MonoBehaviour
         }
     }
     
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    
     private void Finish()
     {
         if (canvas != null)
         {
             isShowing = true;
             canvas.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning("Canvas is not assigned!");
+
+            if (clip != null)
+            {
+                AudioSource.PlayClipAtPoint(clip, transform.position); // Wordt alleen hier afgespeeld
+            }
         }
     }
-
 }
