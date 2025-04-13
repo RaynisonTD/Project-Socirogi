@@ -1,13 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Stats;
-
+using TMPro;
+using System;
 public class EnemyHealthBarCanvas : MonoBehaviour
 {
     [SerializeField] private EnemyStatsComponent statsComponent;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Vector3 offset = new Vector3(0, 2, 0);
     private Camera mainCam;
+    public TMP_Text NameText;
+    public String enemy;
 
     void Start()
     {
@@ -15,6 +18,10 @@ public class EnemyHealthBarCanvas : MonoBehaviour
 
         if (statsComponent == null)
             statsComponent = GetComponentInParent<EnemyStatsComponent>();
+        
+        enemy = transform.root.name;
+        string enemySplit = enemy.Split(' ')[0];
+        NameText.text = enemySplit; 
     }
 
     void Update()

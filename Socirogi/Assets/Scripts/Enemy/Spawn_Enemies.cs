@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawn_Enemies : MonoBehaviour
 {
     private bool isPlayerNearby = false;
-    public GameObject Prefab;
+    public GameObject Enemy;
     private Transform vloer;
     public GameObject muur;
     private GameObject enemy;
@@ -25,7 +25,7 @@ public class Spawn_Enemies : MonoBehaviour
         Debug.Log(vloer.position);
         if (isPlayerNearby)
         {
-            Instantiate(Prefab, vloer.position, Quaternion.identity);
+            Instantiate(Enemy, vloer.position, Quaternion.identity);
             Block_Room();
 
         }
