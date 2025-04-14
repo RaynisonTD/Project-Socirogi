@@ -1,62 +1,53 @@
 using System;
-using Unity.Mathematics;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawn_Enemies : MonoBehaviour
 {
+    [System.Serializable]
+    //klas lijst voor de enemy ding die je rechts gaat zienin je inspector
+    public class EnemySpawn
+    {
+        public GameObject enemyPrefab;
+        public Transform spawnPoint;
+        [HideInInspector] public GameObject spawnedInstance; 
+    }
+
+    [Header("Enemy Spawns")]
+    public List<EnemySpawn> enemies = new List<EnemySpawn>();
+
     private bool isPlayerNearby = false;
-    public GameObject Enemy;
-    private Transform vloer;
-    public GameObject muur;
-    private GameObject enemy;
-    
+    private bool enemiesSpawned = false;
+
+    //wanneer de player colide met de trigger collsion spawn de enemies in
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !enemiesSpawned)
         {
             isPlayerNearby = true;
-            SpawnEnemy();
+            SpawnEnemies();
         }
     }
-
-    public void SpawnEnemy()
+    
+    public void SpawnEnemies()
     {
-        vloer = GameObject.Find("enemy_spawn").transform;
-        Debug.Log(vloer.position);
-        if (isPlayerNearby)
+        if (!isPlayerNearby) return;
+
+        //voor elke enemy die er in de lijst zit en ook gevuld is spawn die enemy op het beschreven punt waar die bij hoort
+        foreach (var enemy in enemies)
         {
-            Instantiate(Enemy, vloer.position, Quaternion.identity);
-            Block_Room();
-
-        }
-    }
-
-    private void Update()
-    {
-        enemy = GameObject.Find("Enemy(Clone)");
-        if (enemy == null)
-        {
-            UnBlock_Room();
-        }
-    }
-
-    public void Block_Room()
-    {
-        Instantiate(muur, new Vector3(10, 5, 20), Quaternion.identity);
-        Instantiate(muur, new Vector3(22, 5, 9), Quaternion.Euler(0, 90, 0));
-
-    }
-
-    public void UnBlock_Room()
-    {
-        GameObject[] alleObjecten = FindObjectsOfType<GameObject>();
-
-        foreach (GameObject obj in alleObjecten)
-        {
-            if (obj.name == "de_muur(Clone)")
+            if (enemy.enemyPrefab != null && enemy.spawnPoint != null)
             {
-                Destroy(obj);
+                enemy.spawnedInstance = Instantiate(enemy.enemyPrefab, enemy.spawnPoint.position, enemy.spawnPoint.rotation);
             }
         }
+
+        enemiesSpawned = true;
     }
+
+
+
+
+
+    
 }
