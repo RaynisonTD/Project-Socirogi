@@ -1,3 +1,4 @@
+using Unity.Behavior;
 using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
@@ -15,7 +16,7 @@ public class BaseEnemy : MonoBehaviour
 
     private Transform target;
     private Rigidbody rb;
-
+    private BehaviorGraphAgent agent;
     protected virtual void Awake()
     {
         currentHealth = baseHealth * stats.healthMultiplier;
@@ -25,6 +26,9 @@ public class BaseEnemy : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
 
         rb = GetComponent<Rigidbody>();
+        agent = GetComponent<BehaviorGraphAgent>();
+        
+        agent.BlackboardReference.SetVariableValue("Speed", currentSpeed);
     }
 
     public virtual void TakeDamage(float amount)
