@@ -82,7 +82,7 @@ namespace Player
         {
             // Beweeg de speler met behulp van de Rigidbody
             Vector3 velocity = _moveDirection * moveSpeed;
-            _rb.velocity = velocity;
+            _rb.linearVelocity = velocity;
         }
     }
 }
