@@ -11,8 +11,13 @@ public class AttackOrigin : MonoBehaviour
 
     private bool canAttack = true;
 
+    private Animator animator;
+    private static readonly int CastTrigger = Animator.StringToHash("Cast");
+
     void Start()
     {
+        animator = GameObject.Find("RPG-Character").GetComponent<Animator>(); //Dit gebruikt op het moment GameObject.Find, dit moeten we denk ik veranderen later. 16/04 - B
+
         PlayerController.OnAttackInput += TryAttack;
     }
 
@@ -26,6 +31,11 @@ public class AttackOrigin : MonoBehaviour
     IEnumerator AttackRoutine()
     {
         canAttack = false;
+
+        // Voor de cast animatie, sorry Steven. - B
+        if (animator != null) {
+            animator.SetTrigger(CastTrigger);
+        }
 
         Vector3 spawnPos = firePoint.position + firePoint.forward * 0.5f;
         GameObject projectile = Instantiate(projectilePrefab, spawnPos, firePoint.rotation);
