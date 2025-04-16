@@ -7,7 +7,7 @@ public class AttackOrigin : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float projectileSpeed = 20f;
-    [SerializeField] private float attackCooldown = 5f;
+    [SerializeField] private float attackCooldown = 1f;
 
     private bool canAttack = true;
 
