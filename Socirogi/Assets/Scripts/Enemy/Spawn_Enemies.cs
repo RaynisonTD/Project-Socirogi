@@ -20,7 +20,17 @@ public class Spawn_Enemies : MonoBehaviour
     private bool enemiesSpawned = false;
 
     public GameObject Wall;
-
+    public Vector3[] muurPosities = new Vector3[2]
+    {
+        new Vector3(10, 5, 20),
+        new Vector3(22, 5, 9)
+    };
+    public Vector3[] muurRotaties = new Vector3[2]
+    {
+        Vector3.zero,
+        new Vector3(0, 90, 0)
+    };
+    
     //wanneer de player colide met de trigger collsion spawn de enemies in
     void OnTriggerEnter(Collider other)
     {
@@ -49,9 +59,45 @@ public class Spawn_Enemies : MonoBehaviour
 
     public void Block_Room()
     {
-        Instantiate(Wall, new Vector3(0, 19, 2), Quaternion.identity);
+        BoxCollider box = GetComponent<BoxCollider>();
+        if (box == null)
+        {
+            Debug.LogError("Geen BoxCollider gevonden op de kamer!");
+            return;
+        }
 
+        Vector3 center = box.center + transform.position;
+        Vector3 size = box.size;
+
+        // Posities van muren (voorkant, achterkant, links, rechts)
+        Vector3[] posities = new Vector3[]
+        {
+            center + new Vector3(0, 0, size.z / 2),     // Voor
+            center + new Vector3(0, 0, -size.z / 2),    // Achter
+            center + new Vector3(size.x / 2, 0, 0),     // Rechts
+            center + new Vector3(-size.x / 2, 0, 0)     // Links
+        };
+
+        Vector3[] rotaties = new Vector3[]
+        {
+            new Vector3(0, 0, 0), 
+            new Vector3(0, 180, 0), 
+            new Vector3(0, 90, 0),  
+            new Vector3(0, -90, 0)  
+        };
+
+        float muurDikte = 1f;
+        float muurHoogte = 7f;
+
+        for (int i = 0; i < posities.Length; i++)
+        {
+            GameObject nieuweMuur = Instantiate(Wall, posities[i], Quaternion.Euler(rotaties[i]), this.transform);
+
+            // Optioneel: schaal aanpassen zodat hij de kamer breedte/hoogte dekt
+            nieuweMuur.transform.localScale = new Vector3(size.x, muurHoogte, muurDikte);
+        }
     }
+
 
     public void UnBlock_Room()
     {
