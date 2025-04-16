@@ -20,17 +20,7 @@ public class Spawn_Enemies : MonoBehaviour
     private bool enemiesSpawned = false;
 
     public GameObject Wall;
-    public Vector3[] muurPosities = new Vector3[2]
-    {
-        new Vector3(10, 5, 20),
-        new Vector3(22, 5, 9)
-    };
-    public Vector3[] muurRotaties = new Vector3[2]
-    {
-        Vector3.zero,
-        new Vector3(0, 90, 0)
-    };
-    
+    public GameObject Chest;
     //wanneer de player colide met de trigger collsion spawn de enemies in
     void OnTriggerEnter(Collider other)
     {
@@ -114,10 +104,18 @@ public class Spawn_Enemies : MonoBehaviour
                 Destroy(obj);
             }
         }
-
-
+        Spawn_Reward();
     }
 
+
+    public void Spawn_Reward()
+    {
+        BoxCollider box = GetComponent<BoxCollider>();
+        Vector3 center = box.center + transform.position;
+        center.y = center.y + 2;
+        
+        Instantiate(Chest, center, Quaternion.identity);
+    }
     void Update()
     {
         if (enemiesSpawned)
