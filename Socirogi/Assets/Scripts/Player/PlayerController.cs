@@ -31,9 +31,15 @@ namespace Player
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 input = context.ReadValue<Vector2>();
+
+            if (context.canceled) {
+                _moveDirection = Vector3.zero;
+                OnMoveInput?.Invoke(_moveDirection);
+                return;
+            }
+
             Vector3 forward = _mainCamera.transform.forward;
             Vector3 right = _mainCamera.transform.right;
-
             forward.y = 0;
             right.y = 0;
 
@@ -96,8 +102,8 @@ namespace Player
         void FixedUpdate()
         {
             // Beweeg de speler met behulp van de Rigidbody
-            Vector3 velocity = _moveDirection * moveSpeed * Time.fixedDeltaTime;
-            _rb.MovePosition(_rb.position + velocity);
+            Vector3 velocity = _moveDirection * moveSpeed;
+            _rb.velocity = velocity;
         }
     }
 }

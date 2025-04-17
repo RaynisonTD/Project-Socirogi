@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 681920197736987524}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6354561, y: -14.989, z: 14.74}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -514,8 +514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5393ffabce32643bf9e6973e892fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 0}
-  muur: {fileID: 720864695671689953, guid: f54f29e2c0aa06e468fbfe1339c3f718, type: 3}
+  enemies: []
+  Wall: {fileID: 0}
 --- !u!65 &980421083005325942
 BoxCollider:
   m_ObjectHideFlags: 0
