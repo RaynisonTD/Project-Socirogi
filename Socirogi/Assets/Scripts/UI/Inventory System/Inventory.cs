@@ -1,104 +1,143 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 namespace UI.Inventory_System
 {
     public class Inventory : MonoBehaviour
     {
-    
-        [SerializeReference] public List<ItemSlot> items = new();
-        
-        [Space]
-        [Header("Inventory Menu Components")]
-        public GameObject inventoryMenu;
+        [SerializeReference] public List<ItemSlotInfo> items = new();
 
+        [Header("Inventory Attributes")]
+        public GameObject inventoryMenu;
         public GameObject itemPanel;
         public GameObject itemPanelGrid;
-        
+
+        [Space] public int inventorySize = 6;
+
+        public Item itemtoadd;
+
         private List<ItemPanel> existingPanels = new();
 
-        [Space] 
-        public  int inventorySize = 6;
-        
-        
-        
         void Start()
+        {
+            FillInventory();
+
+            // Voor test: een TestItem SO inladen via Resources (of handmatig toewijzen als nodig)
+            
+            AddItem(itemtoadd, 80);
+            
+        
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                ActivateInventory();
+            }
+        }
+
+        public void FillInventory()
         {
             for (int i = 0; i < inventorySize; i++)
             {
-                items.Add(new ItemSlot(null, 0));
+                items.Add(new ItemSlotInfo(null, 0));
             }
         }
 
-        public void RefreshInventory()
+        public void ActivateInventory()
+        {
+            if (inventoryMenu.activeSelf)
+            {
+                inventoryMenu.SetActive(false);
+            }
+            else
+            {
+                inventoryMenu.SetActive(true);
+                UpdateInventory();
+            }
+        }
+
+        public void UpdateInventory()
         {
             existingPanels = itemPanelGrid.GetComponentsInChildren<ItemPanel>().ToList();
-            //Create Panels if needed
-            if (existingPanels.Count < inventorySize)
-            {
-                int amountToCreate = inventorySize - existingPanels.Count;
-                for (int i = 0; i < amountToCreate; i++)
-                {
-                    GameObject newPanel = Instantiate(itemPanel, itemPanelGrid.transform);
-                    existingPanels.Add(newPanel.GetComponent<ItemPanel>());
-                }
-            }
+            AdjustPanelCount();
 
-            int index = 0;
-            foreach (ItemSlot i in items)
+            for (int index = 0; index < items.Count; index++)
             {
-                //Name our List Elements
-                i.itemName = "" + (index + 1);
-                if (i.item) i.itemName += ": " + i.item.GiveName();
-                else i.itemName += ": -";
-
-                //Update our Panels
-                ItemPanel panel = existingPanels[index];
-                panel.name = i.itemName + " Panel";
-                if (panel != null)
-                {
-                    panel.inventory = this;
-                    panel.itemSlot = i;
-                    if (i.item)
-                    {
-                        panel.itemImage.gameObject.SetActive(true);
-                        panel.itemImage.sprite = i.item.GetItemIcon();
-                        
-                        panel.stacksText.gameObject.SetActive(true);
-                        panel.stacksText.text = "" + i.quantity;
-                    }
-                    else
-                    {
-                        panel.itemImage.gameObject.SetActive(false);
-                        panel.stacksText.gameObject.SetActive(false);
-                    }
-                }
-                index++;
+                UpdatePanel(index, items[index]);
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        private void AdjustPanelCount()
         {
-            // set the inventory to active or in active on button press
-            if (Input.GetKeyDown(KeyCode.I))
+            int difference = inventorySize - existingPanels.Count;
+            if (difference > 0) AddPanels(difference);
+        }
+
+        private void AddPanels(int amount)
+        {
+            for (int i = 0; i < amount; i++)
             {
-                if (inventoryMenu.activeSelf)
-                {
-                    inventoryMenu.SetActive(false);
-                    
-                }
-                else
-                {
-                    inventoryMenu.SetActive(true);
-                    
-                    RefreshInventory();
-                }
-                
+                GameObject newPanel = Instantiate(itemPanel, itemPanelGrid.transform);
+                existingPanels.Add(newPanel.GetComponent<ItemPanel>());
             }
         }
 
-        
+        private void UpdatePanel(int index, ItemSlotInfo slot)
+        {
+            var panel = existingPanels[index];
+            panel.name = $"{index + 1}: {(slot.item != null ? slot.item.GiveName() : "-")} Panel";
+            panel.itemSlot = slot;
+            panel.UpdateVisuals();
+        }
+
+        public int AddItem(Item item, int amount)
+        {
+            // 1. Stack op bestaande sloten
+            foreach (ItemSlotInfo slot in items)
+            {
+                if (slot.item != null && slot.item.GiveName() == item.GiveName())
+                {
+                    int spaceLeft = item.maxQuantity - slot.quantity;
+                    if (spaceLeft > 0)
+                    {
+                        int addAmount = Mathf.Min(amount, spaceLeft);
+                        slot.quantity += addAmount;
+                        amount -= addAmount;
+                        if (amount == 0) break;
+                    }
+                }
+            }
+
+            // 2. Voeg toe aan lege sloten
+            foreach (ItemSlotInfo slot in items)
+            {
+                if (amount <= 0) break;
+
+                if (slot.item == null)
+                {
+                    int addAmount = Mathf.Min(amount, item.maxQuantity);
+                    slot.item = item;
+                    slot.quantity = addAmount;
+                    amount -= addAmount;
+                }
+            }
+
+            if (amount > 0)
+            {
+                Debug.Log("No space in inventory for " + item.GiveName());
+            }
+
+            if (inventoryMenu.activeSelf) UpdateInventory();
+            return amount;
+        }
+
+        public void ClearSlot(ItemSlotInfo slot)
+        {
+            slot.item = null;
+            slot.quantity = 0;
+        }
     }
 }

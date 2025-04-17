@@ -46,23 +46,44 @@ namespace Player
 
         public void OnLook(InputAction.CallbackContext context)
         {
-            Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
-            Ray ray = _mainCamera.ScreenPointToRay(mouseScreenPosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            // Als de input komt van een muis (bijv. bij Keyboard & Mouse scheme)
+            if (Mouse.current != null && context.control.device == Mouse.current)
             {
-                _lookDirection = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-                Vector3 directionToMouse = _lookDirection - transform.position;
-                directionToMouse.y = 0f;
+                Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
+                Ray ray = _mainCamera.ScreenPointToRay(mouseScreenPosition);
+                RaycastHit hit;
 
-                // Rotate speler naar de muispositie
-                transform.rotation = Quaternion.LookRotation(directionToMouse);
+                if (Physics.Raycast(ray, out hit))
+                {
+                    _lookDirection = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                    Vector3 directionToMouse = _lookDirection - transform.position;
+                    directionToMouse.y = 0f;
 
-                // Trigger event voor kijkinput
-                OnLookInput?.Invoke(_lookDirection);
+                    // Rotate speler naar de muispositie
+                    if (directionToMouse != Vector3.zero)
+                    {
+                        transform.rotation = Quaternion.LookRotation(directionToMouse);
+                    }
+
+                    OnLookInput?.Invoke(_lookDirection);
+                }
+            }
+            // Als de input van een controller stick komt (bijv. Gamepad)
+            else if (context.control.device is Gamepad)
+            {
+                Vector2 stickInput = context.ReadValue<Vector2>();
+                Vector3 lookDirection = new Vector3(stickInput.x, 0f, stickInput.y);
+
+                if (lookDirection.sqrMagnitude > 0.01f)
+                {
+                    transform.rotation = Quaternion.LookRotation(lookDirection.normalized);
+                    _lookDirection = transform.position + lookDirection;
+
+                    OnLookInput?.Invoke(_lookDirection);
+                }
             }
         }
+
 
         public void OnAttack(InputAction.CallbackContext context)
         {
