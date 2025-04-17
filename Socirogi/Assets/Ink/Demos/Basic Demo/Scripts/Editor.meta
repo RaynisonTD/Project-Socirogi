@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Socirogi/Assets/Ink/Demos/Basic Demo/Scripts/Editor.meta
 guid: 9afc9fe3049ac409e886991c340e1a33
+========
+guid: ac5b6ccd1c1f18243af966e736a2065c
+>>>>>>>> Raynison/InventoryUI:Socirogi/Assets/Resources/Items.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

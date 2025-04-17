@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player
+namespace Player.Animations
 {
     [RequireComponent(typeof(Animator))]
     public class PlayerLocomotion : MonoBehaviour
@@ -12,6 +12,10 @@ namespace Player
         private static readonly int ForwardParam = Animator.StringToHash("Forward");
         private static readonly int RightParam = Animator.StringToHash("Right");
         private static readonly int IsMovingParam = Animator.StringToHash("IsMoving");
+        
+        private float _currentForward;
+        private float _currentRight;
+        [SerializeField] private float _smoothTime = 0.15f;
 
         void Awake()
         {
@@ -34,31 +38,35 @@ namespace Player
 
         private void UpdateAnimator()
         {
-            // Check if there is movement input
-            if (_moveDirection.magnitude > 0)
+            if (_moveDirection.magnitude > 0.1f)
             {
-                // Calculate forward/backward magnitude based on movement and look direction
-                Vector3 normalizedLookAt = _lookDirection - transform.position;
-                normalizedLookAt.Normalize();
-                float forwardBackwardsMagnitude = Mathf.Clamp(Vector3.Dot(_moveDirection, normalizedLookAt), -1, 1);
+                Vector3 normalizedLookAt = (_lookDirection - transform.position).normalized;
 
-                // Calculate right/left magnitude based on perpendicular vector
+                float forwardBackwardsMagnitude = Vector3.Dot(_moveDirection.normalized, normalizedLookAt);
                 Vector3 perpendicularLookAt = new Vector3(normalizedLookAt.z, 0, -normalizedLookAt.x);
-                float rightLeftMagnitude = Mathf.Clamp(Vector3.Dot(_moveDirection, perpendicularLookAt), -1, 1);
+                float rightLeftMagnitude = Vector3.Dot(_moveDirection.normalized, perpendicularLookAt);
 
-                // Set animator parameters for movement
+                // Smooth afbouwen of opbouwen naar target
+                _currentForward = Mathf.Lerp(_currentForward, forwardBackwardsMagnitude, Time.deltaTime / _smoothTime);
+                _currentRight = Mathf.Lerp(_currentRight, rightLeftMagnitude, Time.deltaTime / _smoothTime);
+
                 _animator.SetBool(IsMovingParam, true);
-                _animator.SetFloat(ForwardParam, forwardBackwardsMagnitude);
-                _animator.SetFloat(RightParam, rightLeftMagnitude);
+                _animator.SetFloat(ForwardParam, _currentForward);
+                _animator.SetFloat(RightParam, _currentRight);
             }
             else
             {
-                // If no movement input, reset the movement parameters to zero
                 _animator.SetBool(IsMovingParam, false);
-                _animator.SetFloat(ForwardParam, 0f);
-                _animator.SetFloat(RightParam, 0f);
+
+                // Soepel terug naar nul als we stoppen met bewegen
+                _currentForward = Mathf.Lerp(_currentForward, 0f, Time.deltaTime / _smoothTime);
+                _currentRight = Mathf.Lerp(_currentRight, 0f, Time.deltaTime / _smoothTime);
+
+                _animator.SetFloat(ForwardParam, _currentForward);
+                _animator.SetFloat(RightParam, _currentRight);
             }
         }
+
 
         private void OnDestroy()
         {
