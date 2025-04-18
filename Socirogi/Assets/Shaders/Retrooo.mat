@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RetroEffect
+  m_Name: Retrooo
   m_Shader: {fileID: -6465566751694194690, guid: cd9bb075fda784a4788688542fa62bd6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -50,7 +50,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _Dither_Opacity: 0
+    - _Dither_Opacity: 0.4
     - _Quantize_Level: 0
     - _Saturation_Layers: 0
     - _Stencil: 0
