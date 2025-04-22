@@ -1,6 +1,10 @@
 using Unity.Behavior;
 using UnityEngine;
 
+namespace Basestats
+{
+    
+}
 public class BaseEnemy : MonoBehaviour
 {
 

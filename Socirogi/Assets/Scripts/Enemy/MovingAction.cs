@@ -12,7 +12,8 @@ namespace Enemy
     {
         [SerializeReference] public BlackboardVariable<GameObject> Agent;
         [SerializeReference] public BlackboardVariable<Animator> Animation;
-
+        
+        
         protected override Status OnStart()
         {
             return Status.Running;
