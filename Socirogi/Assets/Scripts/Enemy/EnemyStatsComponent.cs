@@ -1,85 +1,88 @@
-    using System;
-    using System.Reflection;
-    using Unity.Behavior;
-    using Unity.VisualScripting;
-    using UnityEngine;
+using System;
+using UnityEngine;
+using Unity.Behavior;
+using Unity.VisualScripting;
 
-    namespace Stats
+namespace Stats
+{
+    public class EnemyStatsComponent : MonoBehaviour
     {
-
-        public class EnemyStatsComponent : MonoBehaviour
-        {
-            public GameObject otherGameObject;
-            private GameObject player;
-            [SerializeField] private EnemyStats stats;
-            [HideInInspector] public EnemyStats realTimeStats;
-            [HideInInspector] public EnemyStats realTimeStatsMax;
-            
+        public GameObject otherGameObject;
+        private GameObject player;
         
+        [SerializeField] private EnemyStats stats;
+        [HideInInspector] public EnemyStats realTimeStats;
+        [HideInInspector] public EnemyStats realTimeStatsMax;
 
-            private void Awake()
+        private void Awake()
+        {
+            ItemChanges();
+        }
+
+        private void Start()
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+
+            // Debug check on realTimeStats
+            if (realTimeStats == null)
             {
-                ItemChanges();
+                Debug.LogWarning("realTimeStats is null in Start!");
             }
-
-            private void Update()
+            
+            if (otherGameObject != null && otherGameObject.TryGetComponent(out BehaviorGraphAgent behaviour))
             {
-                if (realTimeStats.health <= 0)
-                {
-                    Die();
-                }
-            }
+                Debug.Log("BehaviorGraphAgent found on otherGameObject.");
 
-            private void Start()
-            {
-                player = GameObject.FindGameObjectWithTag("Player");
+                var blackboard = behaviour.BlackboardReference;
 
-                if (otherGameObject != null && otherGameObject.TryGetComponent(out BehaviorGraphAgent behaviour))
+                if (blackboard == null)
                 {
-                    behaviour.BlackboardReference.SetVariableValue("Target", player);
-                    
-                    try
-                    {
-                        behaviour.BlackboardReference.SetVariableValue("MoveSpeed", realTimeStats.movespeed);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogWarning($"Failed to set 'MoveSpeed' in blackboard: {ex.Message}");
-                    }
+                    Debug.LogWarning("BlackboardReference is null!");
                 }
                 else
                 {
-                    Debug.LogWarning("BehaviorGraphAgent not found on 'otherGameObject'.");
+                    Debug.Log("Setting blackboard variables...");
+                    blackboard.SetVariableValue("Target", player);
                 }
             }
-
-            void ItemChanges()
+            else
             {
-                realTimeStats = stats.Clone() as EnemyStats;
-                realTimeStatsMax = stats.Clone() as EnemyStats;
-            }
-
-            private void Die()
-            {
-                Debug.Log($"{gameObject.name} is dead!");
-                Destroy(gameObject);
+                Debug.LogWarning("BehaviorGraphAgent not found on 'otherGameObject'.");
             }
         }
-        
-        
-        [System.Serializable] public class EnemyStats : ICloneable
-        {
 
-            // Player stats
-            public float health;
-            public float movespeed;
-            public float Damage;
-            
-       
-            //return instance of the player stats as they were before the changes
-            public object Clone()
+        private void Update()
+        {
+            if (realTimeStats != null && realTimeStats.health <= 0)
             {
-                return this.MemberwiseClone();
+                Die();
             }
+        }
+
+        private void ItemChanges()
+        {
+            realTimeStats = stats.Clone() as EnemyStats;
+            realTimeStatsMax = stats.Clone() as EnemyStats;
+
+            Debug.Log("Stats cloned into realTimeStats.");
+        }
+
+        private void Die()
+        {
+            Debug.Log($"{gameObject.name} is dead!");
+            Destroy(gameObject);
         }
     }
+
+    [System.Serializable]
+    public class EnemyStats : ICloneable
+    {
+        public float health;
+        public float Damage;
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+    }
+}

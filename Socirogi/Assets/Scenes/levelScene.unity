@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4709876771703531406, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6037942015411085693, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
       propertyPath: m_Name
       value: Tank (1)
@@ -182,6 +186,10 @@ PrefabInstance:
     - target: {fileID: 8819855235145416498, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
       propertyPath: baseSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819855235145416498, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1215,8 +1223,12 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3377410712191559616, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
+      propertyPath: stats.health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377410712191559616, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
       propertyPath: stats.movespeed
-      value: 2.05
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4229448960723083133, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
       propertyPath: m_LocalScale.x
@@ -1274,6 +1286,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4709876771703531406, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875891549038547925, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
+      propertyPath: m_Radius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875891549038547925, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6037942015411085693, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
       propertyPath: m_Name
       value: Tank
@@ -1288,9 +1312,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8819855235145416498, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
       propertyPath: baseSpeed
-      value: 15
+      value: 14.9
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8819855235145416498, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819855235145416498, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
+      propertyPath: baseDamage
+      value: 2.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819855235145416498, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
+      propertyPath: baseHealth
+      value: 108.4
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8819855235145416498, guid: 371da5c3b23255a48a0d00baf216d7c7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
