@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 111636216310420777}
   m_Layer: 0
   m_Name: BaseEnemy
-  m_TagString: Untagged
+  m_TagString: Enemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,8 +50,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
-  baseHealth: 100
-  baseDamage: 20
   baseSpeed: 5
 --- !u!114 &7658409830269034614
 MonoBehaviour:
