@@ -1858,11 +1858,20 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 4756623144927887506
   - rid: 4756623144927887494
+  - rid: 891034842639368517
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
     RefIds:
+    - rid: 891034842639368517
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 2793985223673214628
+          m_Value1: 12129384456980785812
+        Name: Speed
+        m_Value: 0
     - rid: 4756623144927887494
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -1954,14 +1963,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.21696019
+  m_Radius: 0.21934189
   m_Height: 1.9268917
   m_Direction: 1
-  m_Center: {x: -0.042923305, y: 0.87506545, z: 0.05289166}
+  m_Center: {x: 0.081644125, y: 0.87506545, z: 0.05289166}
 --- !u!1 &4725762839954921213
 GameObject:
   m_ObjectHideFlags: 0

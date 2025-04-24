@@ -11,7 +11,6 @@ public partial class AttackAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Enemy;
     [SerializeReference] public BlackboardVariable<GameObject> Player;
-
     protected override Status OnStart()
     {
         return Status.Running;
