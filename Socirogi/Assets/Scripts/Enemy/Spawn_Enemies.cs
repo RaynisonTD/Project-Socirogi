@@ -99,6 +99,7 @@ public class Spawn_Enemies : MonoBehaviour
     }
 
 
+    [Obsolete("Obsolete")]
     public void UnBlock_Room()
     {
         //pak alle objecten

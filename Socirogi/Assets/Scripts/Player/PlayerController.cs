@@ -1,7 +1,8 @@
 using Stats;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.HID;
+
 
 namespace Player
 {
@@ -19,6 +20,8 @@ namespace Player
         public static event System.Action<Vector3> OnMoveInput;
         public static event System.Action<Vector3> OnLookInput;
         public static event System.Action OnAttackInput;
+        public static event System.Action OnInventoryInput;
+        
 
         void Start()
         {
@@ -98,12 +101,29 @@ namespace Player
                 OnAttackInput?.Invoke();
             }
         }
+        
+        
 
+        public void OnInventory(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                OnInventoryInput?.Invoke();
+                print("pressed I");
+                
+            }
+        }
+
+        
+        
+        
+        
         void FixedUpdate()
         {
             // Beweeg de speler met behulp van de Rigidbody
             Vector3 velocity = _moveDirection * moveSpeed;
-            _rb.velocity = velocity;
+            _rb.linearVelocity = velocity;
         }
+        
     }
 }
