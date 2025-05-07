@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player.Animations
+namespace Player
 {
     [RequireComponent(typeof(Animator))]
     public class PlayerLocomotion : MonoBehaviour
@@ -12,17 +12,13 @@ namespace Player.Animations
         private static readonly int ForwardParam = Animator.StringToHash("Forward");
         private static readonly int RightParam = Animator.StringToHash("Right");
         private static readonly int IsMovingParam = Animator.StringToHash("IsMoving");
-        
-        private float _currentForward;
-        private float _currentRight;
-        
+        //Cast Animation en Handling zit in de AttackRoutine() in AttackOrigin.cs - B
 
         void Awake()
         {
             _animator = GetComponent<Animator>();
             PlayerController.OnMoveInput += HandleMovementInput;
             PlayerController.OnLookInput += HandleLookInput;
-            PlayerController.OnDodgeInput += HandleDodgeInput;
         }
 
         private void HandleMovementInput(Vector3 moveDirection)
@@ -65,17 +61,10 @@ namespace Player.Animations
             }
         }
 
-
         private void OnDestroy()
         {
             PlayerController.OnMoveInput -= HandleMovementInput;
             PlayerController.OnLookInput -= HandleLookInput;
-        }
-
-
-        public void HandleDodgeInput()
-        {
-            
         }
     }
 }
