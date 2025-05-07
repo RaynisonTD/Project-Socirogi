@@ -12,7 +12,6 @@ namespace Player
         private static readonly int ForwardParam = Animator.StringToHash("Forward");
         private static readonly int RightParam = Animator.StringToHash("Right");
         private static readonly int IsMovingParam = Animator.StringToHash("IsMoving");
-        //Cast Animation en Handling zit in de AttackRoutine() in AttackOrigin.cs - B
 
         void Awake()
         {

@@ -1,7 +1,7 @@
 using Stats;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.HID;
+
 
 namespace Player
 {
@@ -19,6 +19,7 @@ namespace Player
         public static event System.Action<Vector3> OnMoveInput;
         public static event System.Action<Vector3> OnLookInput;
         public static event System.Action OnAttackInput;
+        public static event System.Action OnInventoryInput;
 
         void Start()
         {
@@ -67,6 +68,14 @@ namespace Player
 
                 // Trigger event voor kijkinput
                 OnLookInput?.Invoke(_lookDirection);
+            }
+        }
+
+        public void OnInventory(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                OnInventoryInput?.Invoke();
             }
         }
 
