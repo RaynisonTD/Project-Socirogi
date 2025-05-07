@@ -35,6 +35,7 @@ namespace Stats
         public float movespeed;
         public float Damage;
         public float Mana;
+        
 
         //return instance of the player stats as they were before the changes
         public object Clone()
