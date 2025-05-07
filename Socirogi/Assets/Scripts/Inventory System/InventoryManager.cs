@@ -22,6 +22,8 @@ namespace Inventory_System
         {
             PlayerController.OnInventoryInput += ToggleInventory;
             scrollAction.Enable(); // Activeer de input action
+            
+
 
         }
 
@@ -60,6 +62,8 @@ namespace Inventory_System
                 itemSlot[i].thisItemSelected = false; 
             }
         }
+
+        
 
 
 

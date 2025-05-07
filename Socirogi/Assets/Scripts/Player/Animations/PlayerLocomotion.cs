@@ -22,6 +22,7 @@ namespace Player.Animations
             _animator = GetComponent<Animator>();
             PlayerController.OnMoveInput += HandleMovementInput;
             PlayerController.OnLookInput += HandleLookInput;
+            PlayerController.OnDodgeInput += HandleDodgeInput;
         }
 
         private void HandleMovementInput(Vector3 moveDirection)
@@ -69,6 +70,12 @@ namespace Player.Animations
         {
             PlayerController.OnMoveInput -= HandleMovementInput;
             PlayerController.OnLookInput -= HandleLookInput;
+        }
+
+
+        public void HandleDodgeInput()
+        {
+            
         }
     }
 }
