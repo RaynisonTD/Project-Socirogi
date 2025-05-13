@@ -10,15 +10,28 @@ namespace Inventory_System
 {
     public class InventoryManager : MonoBehaviour
     {
+        public static InventoryManager Instance;
+        
+        public Item[] startItems;
         public int maxStackedItems = 4;
         public InventorySlot[] inventorySlots;
         public GameObject inventoryItemPrefab;
 
         int selectedSlot = -1;
 
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         private void Start()
         {
             ChangeSelectedSlot(0);
+            foreach (Item item in startItems)
+            {
+                AddItem(item);
+            }
         }
 
         private void Update()
@@ -29,6 +42,19 @@ namespace Inventory_System
                 if (isNumber && number > 0 && number < 8)
                 {
                     ChangeSelectedSlot(number - 1);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Item receivedItem = InventoryManager.Instance.GetSelectedItem(true);
+                if (receivedItem != null)
+                {
+                    Debug.Log("Item Picked Up" + receivedItem);
+                }
+                else
+                {
+                    Debug.Log("Item not picked up");
                 }
             }
         }
