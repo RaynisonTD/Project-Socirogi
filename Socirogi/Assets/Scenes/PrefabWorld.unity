@@ -1317,7 +1317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 137065932}
   - component: {fileID: 137065935}
-  - component: {fileID: 137065934}
+  - component: {fileID: 137065936}
   m_Layer: 0
   m_Name: RPG-Character
   m_TagString: Untagged
@@ -1342,18 +1342,6 @@ Transform:
   - {fileID: 106459921}
   m_Father: {fileID: 313911118}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &137065934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 3464476540444089552, guid: 32f7e4766bb1b2c4bba7b9bc60e15b27, type: 3}
-  m_PrefabInstance: {fileID: 2991376964546557725}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137065931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 052b04e75d5c47848a5b1ad69dc75a00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &137065935
 Animator:
   serializedVersion: 7
@@ -1376,6 +1364,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &137065936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137065931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb176689a7d28d74fbf62293f29307af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &157165328
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,7 +2272,6 @@ GameObject:
   - component: {fileID: 313911121}
   - component: {fileID: 313911122}
   - component: {fileID: 313911123}
-  - component: {fileID: 313911124}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2319,7 +2318,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 313911124}
+      - m_Target: {fileID: 313911119}
         m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -2335,7 +2334,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 313911124}
+      - m_Target: {fileID: 313911119}
         m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
@@ -2351,7 +2350,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Look[/Mouse/position]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 313911124}
+      - m_Target: {fileID: 313911119}
         m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
         m_MethodName: OnAttack
         m_Mode: 0
@@ -2632,18 +2631,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &313911124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 313911114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b80184ef319e4642bff220bd60ac8de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &319987770
 GameObject:
   m_ObjectHideFlags: 0
@@ -4299,6 +4286,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b8cac73b68f314e92fb109d86e4760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 5864627363961682361, guid: baf7c18674fbbd847907a9f46fa3ee15, type: 3}
+  firePoint: {fileID: 460954241}
+  projectileSpeed: 20
+  attackCooldown: 1
+  requiredItem: {fileID: 11400000, guid: e07ab9e16869a98498dfa205b8b006ec, type: 2}
 --- !u!82 &460954243
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9868,6 +9860,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96110b738ae079647a1e637c497e1470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startItems:
+  - {fileID: 11400000, guid: e07ab9e16869a98498dfa205b8b006ec, type: 2}
   maxStackedItems: 4
   inventorySlots:
   - {fileID: 104515878}
@@ -10086,7 +10080,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4fddb881dc56a42cda0912425a4fec0b, type: 3}
+  m_Sprite: {fileID: 1824982635, guid: 4fddb881dc56a42cda0912425a4fec0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11952,8 +11946,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0da2a21d4c1c54e67bcf82b1835aa87f, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: -383442828, guid: 0da2a21d4c1c54e67bcf82b1835aa87f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -14193,7 +14187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1978494947
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15006,7 +15000,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
