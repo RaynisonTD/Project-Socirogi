@@ -1,98 +1,102 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using System.Collections.Generic;
-using UI;
 using System.Linq;
-
+using Levels.SceneManagement.SceneInformation;
+using UI;
 
 public class LevelManager : MonoBehaviour
 {
-    // Static instance for global access (Singleton pattern)
     public static LevelManager instance;
 
-    // Parent GameObject that holds all scene transition scripts
     public GameObject transitionContainer;
+    public List<SceneInfo> scenes;
 
-    // Array to store all SceneTransition components found in the container
     private SceneTransition[] transitions;
+    private GameObject player;
+    private SceneInfo currentSceneInfo;
 
-    // List of scene names to load from randomly
-    public List<string> sceneNames;
-
-    // Called when the script instance is being loaded
-    public void Awake()
+    private void Awake()
     {
-        // Ensure only one instance exists (Singleton logic)
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject); // Persist between scenes
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(gameObject); // Destroy duplicate instance
+            Destroy(gameObject);
+            return;
         }
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Called on the first frame the script is active
     private void Start()
     {
-        // Find all SceneTransition components in the transition container
         transitions = transitionContainer.GetComponentsInChildren<SceneTransition>();
     }
 
-    // Coroutine to handle loading scenes with transitions
-    private IEnumerator LoadSceneAsync(string sceneName, string transitionName)
+    public void TransitionToRandomScene(string transitionName)
     {
-        // Find the transition with the given name
+        if (scenes == null || scenes.Count == 0)
+        {
+            Debug.LogError("No scenes assigned.");
+            return;
+        }
+
+        int index = Random.Range(0, scenes.Count);
+        currentSceneInfo = scenes[index];
+        StartCoroutine(LoadSceneAsync(currentSceneInfo, transitionName));
+    }
+
+    private IEnumerator LoadSceneAsync(SceneInfo sceneInfo, string transitionName)
+    {
         SceneTransition transition = transitions.FirstOrDefault(t => t.name == transitionName);
 
-        // If not found, log a warning and stop the coroutine
         if (transition == null)
         {
             Debug.LogWarning($"No transition found with name '{transitionName}'");
             yield break;
         }
 
-        // Begin loading the scene asynchronously but don't activate it yet
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneInfo.scene);
         asyncLoad.allowSceneActivation = false;
 
-        // Play the transition-in animation
         yield return transition.animateTransitionIn();
 
-        // Allow the scene to be activated
         asyncLoad.allowSceneActivation = true;
 
-        // Play the transition-out animation
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         yield return transition.animateTransitionOut();
+        
     }
 
-    // Loads a random scene from the list using the given transition
-    public void TransitionToRandomScene(string transitionName)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // If no scenes are set, log an error
-        if (sceneNames == null || sceneNames.Count == 0)
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
         {
-            Debug.LogError("No scenes assigned to LevelManager");
+            Debug.LogWarning("Player not found in scene.");
             return;
         }
 
-        // Choose a random scene from the list
-        int index = UnityEngine.Random.Range(0, sceneNames.Count);
-        string sceneToLoad = sceneNames[index];
+        string spawnID = currentSceneInfo?.defaultSpawnID ?? "Entrance";
 
-        // Start loading the scene with a transition
-        StartCoroutine(LoadSceneAsync(sceneToLoad, transitionName));
-    }
+        SpawnPoint[] spawnPoints = FindObjectsOfType<SpawnPoint>();
+        foreach (var sp in spawnPoints)
+        {
+            if (sp.spawnID == spawnID)
+            {
+                player.transform.SetPositionAndRotation(sp.transform.position, sp.transform.rotation);
+                return;
+            }
+        }
 
-    // Loads a specific scene by name using the given transition
-    public void TransitionToScene(string sceneName, string transitionName)
-    {
-        StartCoroutine(LoadSceneAsync(sceneName, transitionName));
+        Debug.LogWarning($"No spawn point found with ID '{spawnID}' in scene '{scene.name}'");
     }
 }
-
-
