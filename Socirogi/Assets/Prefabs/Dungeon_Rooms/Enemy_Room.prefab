@@ -515,7 +515,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  Wall: {fileID: 0}
+  Wall: {fileID: 720864695671689953, guid: f54f29e2c0aa06e468fbfe1339c3f718, type: 3}
+  muurPosities:
+  - {x: 10, y: 5, z: 20}
+  - {x: 22, y: 5, z: 9}
+  muurRotaties:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 90, z: 0}
 --- !u!65 &980421083005325942
 BoxCollider:
   m_ObjectHideFlags: 0

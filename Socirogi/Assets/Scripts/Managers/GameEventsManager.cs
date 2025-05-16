@@ -8,6 +8,7 @@ public class GameEventsManager : MonoBehaviour
     public DialogueEvents dialogueEvents;
     public InputEvents inputEvents;
     
+    
     private void Awake()
         {
             if (instance != null)

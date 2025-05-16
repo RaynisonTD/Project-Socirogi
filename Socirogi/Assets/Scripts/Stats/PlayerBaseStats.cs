@@ -30,7 +30,6 @@ namespace Stats
     
     [System.Serializable] public class PlayerStats : ICloneable
     {
-        // Player stats
         public float health;
         public float movespeed;
         public float Damage;
