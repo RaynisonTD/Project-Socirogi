@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a5587c462d76f46bf48579fc037df5, type: 3}
+  m_Script: {fileID: 11500000, guid: fe4b47151ab66e2418ef0decda297258, type: 3}
   m_Name: Healing_potion
   m_EditorClassIdentifier: 
   actionType: 0
-  range: {x: 5, y: 4}
   type: 0
   stackable: 1
-  image: {fileID: 0}
+  healingAmount: 20
+  image: {fileID: -1312510484, guid: bdccc24926659e845be128d4ad4a6b27, type: 3}

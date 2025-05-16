@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 337287306, guid: 59b9ffaff015c430b8bd282fe433b1cc, type: 3}
+  m_Sprite: {fileID: -1194210092, guid: 0b4cecf2d8799be4f86064091c862857, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -110,9 +110,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8801832705208698781}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfd7b536861b7a046bc6a2a581b85502, type: 3}
+  m_Script: {fileID: 11500000, guid: 6589e695d4ba30c4b97336ae7fa869da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1299570807454719294}
-  selectedColor: {r: 0.9547169, g: 0.42331788, b: 0.42331788, a: 1}
-  notSelectedColor: {r: 0.8777876, g: 1, b: 0.41320753, a: 1}
+  selectedColor: {r: 1, g: 0.41320753, b: 0.41320753, a: 1}
+  notSelectedColor: {r: 0.8782143, g: 1, b: 0.3830188, a: 1}
