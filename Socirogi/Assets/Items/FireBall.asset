@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4b47151ab66e2418ef0decda297258, type: 3}
   m_Name: FireBall
   m_EditorClassIdentifier: 
-  actionType: 1
-  type: 1
-  stackable: 0
+  actionType: 0
+  type: 0
+  stackable: 1
   healingAmount: 1
-  image: {fileID: -1853673472, guid: b0fafe985f5356d46b1f3828930e396b, type: 3}
+  image: {fileID: -1312510484, guid: bdccc24926659e845be128d4ad4a6b27, type: 3}
