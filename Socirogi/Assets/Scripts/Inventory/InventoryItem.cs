@@ -17,6 +17,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void InitialiseItem(Item newItem)
     {
+        image = GetComponent<Image>();
         item = newItem;
         image.sprite = newItem.image;
         RefreshCount();

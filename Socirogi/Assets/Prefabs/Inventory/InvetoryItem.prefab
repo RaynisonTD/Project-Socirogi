@@ -165,11 +165,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6566336452717171137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c90d323d30dabc418d676b9772e5d0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b5826408be1207458b8a43171d9c02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
   countText: {fileID: 2741988299978995276}
-  image: {fileID: 5518522376758460713}
+  image: {fileID: 0}
   count: 1
   parentAfterDrag: {fileID: 0}

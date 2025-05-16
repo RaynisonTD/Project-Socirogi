@@ -115,6 +115,7 @@ namespace Inventory_System
         {
             GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
             InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
+            Debug.Log(item);
             inventoryItem.InitialiseItem(item);
         }
 
