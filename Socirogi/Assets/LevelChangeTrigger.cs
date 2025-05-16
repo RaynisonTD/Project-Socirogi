@@ -1,22 +1,30 @@
 using System.Collections.Generic;
+using Levels.SceneManagement.SceneField;
 using UnityEngine;
 
 public class LevelChangeTrigger : MonoBehaviour
 {
+    [Header("Scene to Load")]
+    [SerializeField] private SceneField sceneToLoad;
+    
+    [SerializeField]
+    private bool useRandomSceneFromLevelManager;
 
+    
+    
    
 
-    // The tag assigned to the player character 
     [Tooltip("Only objects with this tag will trigger the scene change")]
     public string playerTag = "Player";
 
-    
     private void OnTriggerEnter(Collider other)
     {
-        // If the player makes contact with the collider, trigger a scene change
         if (other.CompareTag(playerTag))
         {
-            LevelManager.instance.TransitionToScene("Level 1","CrossFade");
+            
+
+            // Load the random scene (or specific one if you want)
+            LevelManager.instance.TransitionToRandomScene("CrossFade");
         }
     }
 }
