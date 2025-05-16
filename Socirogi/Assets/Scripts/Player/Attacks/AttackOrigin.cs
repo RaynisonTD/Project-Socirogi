@@ -13,27 +13,15 @@ public class AttackOrigin : MonoBehaviour
     [SerializeField] private Item requiredItem; // <== Dit moet overeenkomen met jouw vuurbal item in de inventory
 
     private bool canAttack = true;
-
+    
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TryAttack();
-        }
+        // if (Input.GetKeyDown(KeyCode.E))
+        // {
+        //     TryAttack();
+        // }
     }
-
-    void TryAttack()
-    {
-        if (!canAttack) return;
-
-        //hier kijkt die of de jusite item geselect is anedrs heeft het geen nut
-        Item selectedItem = InventoryManager.Instance.GetSelectedItem(false);
-        if (selectedItem != requiredItem) return;
-
-        StartCoroutine(AttackRoutine());
-    }
-
-    IEnumerator AttackRoutine()
+    public IEnumerator AttackRoutine()
     {
         canAttack = false;
         //
@@ -58,5 +46,4 @@ public class AttackOrigin : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-
 }

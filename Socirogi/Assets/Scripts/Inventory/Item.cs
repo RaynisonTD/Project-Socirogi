@@ -8,19 +8,13 @@ public class Item : ScriptableObject
     [Header("Only gameplay")]
     public ActionType actionType;
     public ItemType type;
-    public GameObject prefab;
 
     [Header("Only UI")]
     public bool stackable = true;
+    public int healingAmount = 1;
 
     [Header("Both")]
     public Sprite image;
-    
-    public virtual void Use(GameObject user)
-    {
-        // Basisklasse doet niets
-        Debug.Log($"Item '{name}' used, but no effect defined.");
-    }
 }
 
 

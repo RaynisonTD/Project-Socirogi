@@ -1,16 +1,13 @@
-using System;
-using Player;
-using Unity.VisualScripting;
-using UnityEditor.Analytics;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 namespace Inventory_System
 {
     public class InventoryManager : MonoBehaviour
     {
         public static InventoryManager Instance;
+        private AttackOrigin attackOrigin;
+        HealingItem healingItem;
+
         
         public Item[] startItems;
         public int maxStackedItems = 4;
@@ -19,7 +16,6 @@ namespace Inventory_System
 
         int selectedSlot = -1;
 
-
         private void Awake()
         {
             Instance = this;
@@ -27,12 +23,16 @@ namespace Inventory_System
 
         private void Start()
         {
+            attackOrigin = FindObjectOfType<AttackOrigin>();
+            healingItem = FindFirstObjectByType<HealingItem>();
+
             ChangeSelectedSlot(0);
             foreach (Item item in startItems)
             {
                 AddItem(item);
             }
         }
+
 
         private void Update()
         {
@@ -48,13 +48,22 @@ namespace Inventory_System
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Item receivedItem = InventoryManager.Instance.GetSelectedItem(true);
+                Debug.Log(receivedItem.type);
                 if (receivedItem != null)
                 {
-                    Debug.Log("Item Picked Up" + receivedItem);
+
+                    if (receivedItem.type == ItemType.Attack)
+                    {
+                        StartCoroutine(attackOrigin.AttackRoutine());
+                    }else if (receivedItem.type == ItemType.Potion)
+                    {
+                        Debug.Log(healingItem);
+                        StartCoroutine(healingItem.Heal(receivedItem.healingAmount));
+                    }
                 }
                 else
                 {
-                    Debug.Log("Item not picked up");
+                    Debug.Log("er is geen item type gevonden grote caramba");
                 }
             }
         }
