@@ -1818,6 +1818,7 @@ Transform:
   - {fileID: 765051728709487286}
   - {fileID: 6281369328411398062}
   - {fileID: 5215062815027268060}
+  - {fileID: 3176693080263118278}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7071126499861478685
@@ -1858,20 +1859,11 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 4756623144927887506
   - rid: 4756623144927887494
-  - rid: 891034842639368517
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
     RefIds:
-    - rid: 891034842639368517
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 2793985223673214628
-          m_Value1: 12129384456980785812
-        Name: Speed
-        m_Value: 0
     - rid: 4756623144927887494
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -1911,15 +1903,12 @@ MonoBehaviour:
   otherGameObject: {fileID: 4578556007811497437}
   stats:
     health: 100
-    movespeed: 2
     Damage: 3
   realTimeStats:
     health: 100
-    movespeed: 0
     Damage: 0
   realTimeStatsMax:
     health: 0
-    movespeed: 0
     Damage: 0
 --- !u!54 &6263169696770675119
 Rigidbody:
@@ -1971,6 +1960,59 @@ CapsuleCollider:
   m_Height: 1.9268917
   m_Direction: 1
   m_Center: {x: 0.081644125, y: 0.87506545, z: 0.05289166}
+--- !u!1 &4679490999085217806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3176693080263118278}
+  - component: {fileID: 2824572771107097031}
+  m_Layer: 0
+  m_Name: collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3176693080263118278
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4679490999085217806}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3801491921128777575}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2824572771107097031
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4679490999085217806}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4725762839954921213
 GameObject:
   m_ObjectHideFlags: 0
