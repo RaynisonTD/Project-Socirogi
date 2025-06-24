@@ -420,7 +420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4578556007811497437, guid: 4b5d2d9847678f94e88cf07f5945bad3, type: 3}
       propertyPath: m_Name
-      value: Hardcoding
+      value: 'Henk '
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
