@@ -1795,7 +1795,7 @@ GameObject:
   - component: {fileID: 1676541523163528580}
   - component: {fileID: 1144847068741474130}
   m_Layer: 0
-  m_Name: Hardcoding
+  m_Name: Henk
   m_TagString: Enemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
